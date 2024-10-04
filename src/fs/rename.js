@@ -27,9 +27,9 @@ const rename = async () => {
 		await fs.promises.rename(wrongFilename, properFilename);
 		console.log(`file wrongFilename.txt was renamed to properFilename.md  👏`);
 	} catch (err) {
-		throw new Error(
-			`FS operation failed.  🕵️   File does not exist! Error: ${err.message}`
-		);
+		if (err.code === 'ENOENT') {
+			throw new Error(`FS operation failed.  🕵️  File does not exist!`);
+		}
 	}
 };
 

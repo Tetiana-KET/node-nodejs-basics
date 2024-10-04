@@ -13,9 +13,9 @@ const remove = async () => {
 		fs.promises.unlink(fileToDelete);
 		console.log(`fileToRemove.txt was successfully removed! 👏`);
 	} catch (err) {
-		throw new Error(
-			`FS operation failed.  🕵️   File does not exist! Error: ${err.message}`
-		);
+		if (err.code === 'ENOENT') {
+			throw new Error(`FS operation failed.  🕵️  File does not exist!`);
+		}
 	}
 };
 
