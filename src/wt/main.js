@@ -46,6 +46,8 @@ const performCalculations = async () => {
 
 		for (let i = 0; i < CPUCoresNum; i++) {
 			createWorker(i, 10 + i);
+			// Comment function call at line 48 and Uncomment line 50 to simulate an Error
+			// createWorker(i, i % 2 === 0 ? -1 : 10 + i);
 		}
 	}
 };
