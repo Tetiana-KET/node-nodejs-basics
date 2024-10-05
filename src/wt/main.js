@@ -28,6 +28,7 @@ const performCalculations = async () => {
 		const results = new Array(CPUCoresNum);
 
 		let completed = 0;
+		const STARTING_NUM = 10;
 
 		function createWorker(index, incrementalNumber) {
 			const worker = new Worker(workerFile, {
@@ -45,9 +46,9 @@ const performCalculations = async () => {
 		}
 
 		for (let i = 0; i < CPUCoresNum; i++) {
-			createWorker(i, 10 + i);
+			createWorker(i, STARTING_NUM + i);
 			// Comment function call at line 48 and Uncomment line 50 to simulate an Error
-			// createWorker(i, i % 2 === 0 ? -1 : 10 + i);
+			// createWorker(i, i % 2 === 0 ? -1 : STARTING_NUM + i);
 		}
 	}
 };
