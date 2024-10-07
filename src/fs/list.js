@@ -10,13 +10,10 @@ const list = async () => {
 	const filesFolder = path.join(__dirname, 'files');
 
 	try {
-		await fs.promises.access(filesFolder);
 		const files = await fs.promises.readdir(filesFolder);
 		console.log(files);
 	} catch (err) {
-		if (err.code === 'ENOENT') {
-			throw new FSOperationError();
-		}
+		throw new FSOperationError();
 	}
 };
 

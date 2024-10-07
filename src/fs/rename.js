@@ -14,22 +14,10 @@ const rename = async () => {
 	const properFilename = path.join(__dirname, 'files', 'properFilename.md');
 
 	try {
-		await fs.promises.access(wrongFilename);
-		try {
-			await fs.promises.access(properFilename);
-			throw new FSOperationError();
-		} catch (err) {
-			if (err.code !== 'ENOENT') {
-				throw err;
-			}
-		}
-
 		await fs.promises.rename(wrongFilename, properFilename);
 		console.log(`file wrongFilename.txt was renamed to properFilename.md  👏`);
-	} catch (err) {
-		if (err.code === 'ENOENT') {
-			throw new FSOperationError();
-		}
+	} catch {
+		throw new FSOperationError();
 	}
 };
 

@@ -10,13 +10,10 @@ const remove = async () => {
 	const fileToDelete = path.join(__dirname, 'files', 'fileToRemove.txt');
 
 	try {
-		await fs.promises.access(fileToDelete);
-		fs.promises.unlink(fileToDelete);
+		await fs.promises.unlink(fileToDelete);
 		console.log(`fileToRemove.txt was successfully removed! 👏`);
-	} catch (err) {
-		if (err.code === 'ENOENT') {
-			throw new FSOperationError();
-		}
+	} catch {
+		throw new FSOperationError();
 	}
 };
 

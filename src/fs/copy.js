@@ -14,12 +14,7 @@ const copy = async () => {
 	const srcFolder = path.join(__dirname, 'files');
 	const destFolder = path.join(__dirname, 'files_copy');
 
-	const doesSrcExist = await fs.promises.stat(srcFolder).catch(() => false);
 	const doesDestExist = await fs.promises.stat(destFolder).catch(() => false);
-
-	if (!doesSrcExist) {
-		throw new FSOperationError();
-	}
 
 	if (doesDestExist) {
 		throw new FSOperationError();
@@ -31,7 +26,7 @@ const copy = async () => {
 		await fs.promises.cp(srcFolder, destFolder, { recursive: true });
 		console.log('directory copied');
 	} catch (err) {
-		throw new FSOperationError(err.message);
+		throw new FSOperationError();
 	}
 };
 
