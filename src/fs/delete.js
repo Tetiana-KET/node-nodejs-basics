@@ -1,5 +1,20 @@
+/*implement function that deletes file fileToRemove.txt 
+(if there's no file fileToRemove.txt Error with message FS operation failed must be thrown)*/
+import fs from 'fs';
+import path from 'path';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
+import { FSOperationError } from '../CustomError/FSOperationError.js';
+
 const remove = async () => {
-    // Write your code here 
+	const { __dirname } = getFileAndDirName(import.meta.url);
+	const fileToDelete = path.join(__dirname, 'files', 'fileToRemove.txt');
+
+	try {
+		await fs.promises.unlink(fileToDelete);
+		console.log(`fileToRemove.txt was successfully removed! 👏`);
+	} catch {
+		throw new FSOperationError();
+	}
 };
 
 await remove();
