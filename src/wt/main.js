@@ -11,7 +11,7 @@
  * The results in the array must be in the same order that the workers were created
  */
 
-import { Worker, isMainThread } from 'worker_threads';
+import { Worker } from 'worker_threads';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -23,33 +23,31 @@ const performCalculations = async () => {
 
 	const workerFile = path.join(__dirname, 'worker.js');
 
-	if (isMainThread) {
-		const CPUCoresNum = os.cpus().length;
-		const results = new Array(CPUCoresNum);
+	const CPUCoresNum = os.cpus().length;
+	const results = new Array(CPUCoresNum);
 
-		let completed = 0;
-		const STARTING_NUM = 10;
+	let completed = 0;
+	const STARTING_NUM = 10;
 
-		function createWorker(index, incrementalNumber) {
-			const worker = new Worker(workerFile, {
-				workerData: incrementalNumber,
-			});
+	function createWorker(index, incrementalNumber) {
+		const worker = new Worker(workerFile, {
+			workerData: incrementalNumber,
+		});
 
-			worker.on('message', message => {
-				results[index] = message;
-				completed++;
+		worker.on('message', message => {
+			results[index] = message;
+			completed++;
 
-				if (completed === CPUCoresNum) {
-					console.log('Results from workers:', results);
-				}
-			});
-		}
+			if (completed === CPUCoresNum) {
+				console.log('Results from workers:', results);
+			}
+		});
+	}
 
-		for (let i = 0; i < CPUCoresNum; i++) {
-			createWorker(i, STARTING_NUM + i);
-			// Comment function call at line 48 and Uncomment line 50 to simulate an Error
-			// createWorker(i, i % 2 === 0 ? -1 : STARTING_NUM + i);
-		}
+	for (let i = 0; i < CPUCoresNum; i++) {
+		createWorker(i, STARTING_NUM + i);
+		// Comment function call at line 48 and Uncomment line 50 to simulate an Error
+		// createWorker(i, i % 2 === 0 ? -1 : STARTING_NUM + i);
 	}
 };
 
