@@ -22,7 +22,7 @@ const calculateHash = async () => {
 		hash.update(chunk);
 	});
 	readStream.on('end', () => {
-		console.log(hash.digest('hex'));
+		console.log(`SHA256 hash for the file: ${hash.digest('hex')}`);
 	});
 	readStream.on('error', err => {
 		throw new Error(err.message);

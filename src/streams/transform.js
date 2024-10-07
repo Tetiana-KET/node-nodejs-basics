@@ -4,7 +4,7 @@ and then writes it into process.stdout*/
 import { Transform } from 'stream';
 
 const reverseStream = new Transform({
-	transform(chunk, _encoding, callback) {
+	transform(chunk, _, callback) {
 		const reversedChunk = chunk.toString().split('').reverse().join('');
 		callback(null, reversedChunk);
 	},

@@ -1,11 +1,11 @@
 /*implement function that writes process.stdin data into file fileToWrite.txt content using Writable Stream */
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const write = async () => {
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = path.dirname(__filename);
+	const { __dirname } = getFileAndDirName(import.meta.url);
+
 	const fileToWrite = path.join(__dirname, 'files', 'fileToWrite.txt');
 
 	process.stdout.write('Hello!, Enter your data:\n');
