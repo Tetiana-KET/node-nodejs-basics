@@ -4,11 +4,10 @@ Error with message FS operation failed must be thrown)*/
 import fs from 'fs';
 import path from 'path';
 
-import { fileURLToPath } from 'url';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const rename = async () => {
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = path.dirname(__filename);
+	const { __dirname } = getFileAndDirName(import.meta.url);
 
 	const wrongFilename = path.join(__dirname, 'files', 'wrongFilename.txt');
 	const properFilename = path.join(__dirname, 'files', 'properFilename.md');

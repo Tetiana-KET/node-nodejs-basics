@@ -5,12 +5,10 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const copy = async () => {
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = dirname(__filename);
+	const { __dirname } = getFileAndDirName(import.meta.url);
 
 	const srcFolder = path.join(__dirname, 'files');
 	const destFolder = path.join(__dirname, 'files_copy');

@@ -1,13 +1,11 @@
-/**implement function that prints content of the fileToRead.txt into console 
+/**implement function that prints content of the fileToRead.txt into console
  * (if there's no file fileToRead.txt Error with message FS operation failed must be thrown) */
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const read = async () => {
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = dirname(__filename);
+	const { __dirname } = getFileAndDirName(import.meta.url);
 	const readableStream = fs.createReadStream(
 		path.join(__dirname, 'files', 'fileToRead.txt'),
 		'utf8'

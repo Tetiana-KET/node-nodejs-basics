@@ -2,11 +2,10 @@
 (if files folder doesn't exists Error with message FS operation failed must be thrown) */
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const list = async () => {
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = path.dirname(__filename);
+	const { __dirname } = getFileAndDirName(import.meta.url);
 	const filesFolder = path.join(__dirname, 'files');
 
 	try {
