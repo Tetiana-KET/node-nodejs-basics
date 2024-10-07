@@ -14,12 +14,10 @@
 import { Worker } from 'worker_threads';
 import os from 'os';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const performCalculations = async () => {
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = dirname(__filename);
+	const { __dirname } = getFileAndDirName(import.meta.url);
 
 	const workerFile = path.join(__dirname, 'worker.js');
 

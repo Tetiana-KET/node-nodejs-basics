@@ -6,13 +6,13 @@
  child process stdout should send data to master process stdout
 */
 import { spawn } from 'child_process';
-import { fileURLToPath } from 'url';
 import path from 'path';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const spawnChildProcess = async args => {
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = path.dirname(__filename);
+	const { __dirname } = getFileAndDirName(import.meta.url);
 	const childProcessFile = path.join(__dirname, 'files', 'script.js');
+
 	// comment the line above and uncomment next line to test error handling
 	// const childProcessFile = path.join(__dirname, 'files', 'notExist.js');
 

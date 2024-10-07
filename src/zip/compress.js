@@ -3,13 +3,12 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import zlib from 'zlib';
 import { pipeline } from 'node:stream';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const compress = async () => {
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = path.dirname(__filename);
+	const { __dirname } = getFileAndDirName(import.meta.url);
 
 	const fileToCompress = path.join(__dirname, 'files', 'fileToCompress.txt');
 	const compressedFile = path.join(__dirname, 'files', 'archive.gz');
