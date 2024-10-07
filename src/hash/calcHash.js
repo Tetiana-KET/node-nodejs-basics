@@ -4,6 +4,7 @@ and logs it into console as hex using Streams API*/
 import fs from 'fs';
 import { createHash } from 'node:crypto';
 import path from 'path';
+import { getFileAndDirName } from '../utils/getFileAndDirName.js';
 
 const calculateHash = async () => {
 	const { __dirname } = getFileAndDirName(import.meta.url);
