@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { getFileAndDirName } from '../utils/getFileAndDirName.js';
+import { FSOperationError } from '../CustomError/FSOperationError.js';
 
 const copy = async () => {
 	const { __dirname } = getFileAndDirName(import.meta.url);
@@ -17,11 +18,11 @@ const copy = async () => {
 	const doesDestExist = await fs.promises.stat(destFolder).catch(() => false);
 
 	if (!doesSrcExist) {
-		throw new Error('FS operation failed.  🕵️  The folder does not exist!');
+		throw new FSOperationError();
 	}
 
 	if (doesDestExist) {
-		throw new Error('FS operation failed.  🎃  The folder ALREADY exist!');
+		throw new FSOperationError();
 	}
 
 	await fs.promises.mkdir(destFolder);
@@ -30,7 +31,7 @@ const copy = async () => {
 		await fs.promises.cp(srcFolder, destFolder, { recursive: true });
 		console.log('directory copied');
 	} catch (err) {
-		console.log(err);
+		throw new FSOperationError(err.message);
 	}
 };
 

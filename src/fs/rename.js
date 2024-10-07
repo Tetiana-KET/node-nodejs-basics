@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { getFileAndDirName } from '../utils/getFileAndDirName.js';
+import { FSOperationError } from '../CustomError/FSOperationError.js';
 
 const rename = async () => {
 	const { __dirname } = getFileAndDirName(import.meta.url);
@@ -16,7 +17,7 @@ const rename = async () => {
 		await fs.promises.access(wrongFilename);
 		try {
 			await fs.promises.access(properFilename);
-			throw new Error(`FS operation failed.  🐈  File ALREADY exist!`);
+			throw new FSOperationError();
 		} catch (err) {
 			if (err.code !== 'ENOENT') {
 				throw err;
@@ -27,7 +28,7 @@ const rename = async () => {
 		console.log(`file wrongFilename.txt was renamed to properFilename.md  👏`);
 	} catch (err) {
 		if (err.code === 'ENOENT') {
-			throw new Error(`FS operation failed.  🕵️  File does not exist!`);
+			throw new FSOperationError();
 		}
 	}
 };

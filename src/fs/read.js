@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { getFileAndDirName } from '../utils/getFileAndDirName.js';
+import { FSOperationError } from '../CustomError/FSOperationError.js';
 
 const read = async () => {
 	const { __dirname } = getFileAndDirName(import.meta.url);
@@ -14,11 +15,9 @@ const read = async () => {
 	let data = '';
 	readableStream.on('data', chunk => (data += chunk));
 	readableStream.on('end', () => console.log(data));
-	readableStream.on('error', () =>
-		console.log(
-			'Error: FS operation failed! \nPlease check if such file exist!'
-		)
-	);
+	readableStream.on('error', () => {
+		throw new FSOperationError();
+	});
 };
 
 await read();

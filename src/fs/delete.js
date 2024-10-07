@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { getFileAndDirName } from '../utils/getFileAndDirName.js';
+import { FSOperationError } from '../CustomError/FSOperationError.js';
 
 const remove = async () => {
 	const { __dirname } = getFileAndDirName(import.meta.url);
@@ -14,7 +15,7 @@ const remove = async () => {
 		console.log(`fileToRemove.txt was successfully removed! 👏`);
 	} catch (err) {
 		if (err.code === 'ENOENT') {
-			throw new Error(`FS operation failed.  🕵️  File does not exist!`);
+			throw new FSOperationError();
 		}
 	}
 };
