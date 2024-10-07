@@ -2,10 +2,8 @@
 calcHash.js - implement function that calculates SHA256 hash for file fileToCalculateHashFor.txt 
 and logs it into console as hex using Streams API*/
 import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { createHash } from 'node:crypto';
-import { getFileAndDirName } from '../utils/getFileAndDirName.js';
+import path from 'path';
 
 const calculateHash = async () => {
 	const { __dirname } = getFileAndDirName(import.meta.url);
